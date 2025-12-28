@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000000"
+    android:padding="24dp"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="[CYBERDECK_LOCKSCREEN]"
+        android:textColor="#00FF00"
+        android:textSize="20sp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:paddingBottom="32dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Custom terminal-style lock screen\nfor your CyberDeck setup."
+        android:textColor="#00FF00"
+        android:textSize="14sp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:paddingBottom="32dp" />
+
+    <TextView
+        android:id="@+id/statusText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="[STATUS: INACTIVE]"
+        android:textColor="#FF0000"
+        android:textSize="14sp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:paddingBottom="16dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="┌─────────────────────┐\n│  ENABLE LOCKSCREEN  │\n└─────────────────────┘"
+        android:textColor="#00FF00"
+        android:textSize="14sp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="The lock screen will activate\nautomatically when the screen\nturns on."
+        android:textColor="#00FF0080"
+        android:textSize="12sp"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:paddingTop="32dp" />
+
+</LinearLayout>

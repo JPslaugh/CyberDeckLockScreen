@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:padding="24dp">
+
+    <!-- Top Section: System Info -->
+    <LinearLayout
+        android:id="@+id/topSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/headerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="[CYBERDECK_LOCKSCREEN_v1.0]"
+            android:textColor="#00FF00"
+            android:textSize="12sp"
+            android:fontFamily="monospace"
+            android:paddingBottom="16dp" />
+
+        <TextView
+            android:id="@+id/batteryText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Battery: [100%] ██████████"
+            android:textColor="#00FF00"
+            android:textSize="12sp"
+            android:fontFamily="monospace"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/wifiText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WiFi: [Connected]"
+            android:textColor="#00FF00"
+            android:textSize="12sp"
+            android:fontFamily="monospace"
+            android:paddingBottom="8dp" />
+
+    </LinearLayout>
+
+    <!-- Center Section: Time & Date -->
+    <LinearLayout
+        android:id="@+id/centerSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00:00:00"
+            android:textColor="#00FF00"
+            android:textSize="48sp"
+            android:fontFamily="monospace"
+            android:letterSpacing="0.1"
+            android:paddingBottom="16dp" />
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[2025-12-28]"
+            android:textColor="#00FFFF"
+            android:textSize="18sp"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[SYSTEM_LOCKED]"
+            android:textColor="#FF0000"
+            android:textSize="14sp"
+            android:fontFamily="monospace"
+            android:paddingTop="24dp"
+            android:paddingBottom="8dp" />
+
+    </LinearLayout>
+
+    <!-- Bottom Section: Unlock Instructions -->
+    <LinearLayout
+        android:id="@+id/bottomSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="┌────────────────────────┐"
+            android:textColor="#00FF00"
+            android:textSize="12sp"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="│   SWIPE UP TO UNLOCK   │"
+            android:textColor="#00FF00"
+            android:textSize="12sp"
+            android:fontFamily="monospace" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="└────────────────────────┘"
+            android:textColor="#00FF00"
+            android:textSize="12sp"
+            android:fontFamily="monospace"
+            android:paddingBottom="16dp" />
+
+        <TextView
+            android:id="@+id/uptimeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Uptime: [0d 0h 0m]"
+            android:textColor="#00FF0080"
+            android:textSize="10sp"
+            android:fontFamily="monospace" />
+
+    </LinearLayout>
+
+</RelativeLayout>

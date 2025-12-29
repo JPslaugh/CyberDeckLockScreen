@@ -35,7 +35,18 @@ public class ScreenReceiver extends BroadcastReceiver {
             case Intent.ACTION_BOOT_COMPLETED:
                 // Device booted, start the service
                 Intent serviceIntent = new Intent(context, LockScreenService.class);
-                context.startService(serviceIntent);
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                    context.startForegroundService(serviceIntent);
+                } else {
+                    context.startService(serviceIntent);
+                }
+
+                // Also show lock screen immediately
+                Intent lockIntent = new Intent(context, LockScreenActivity.class);
+                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                                  Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                                  Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                context.startActivity(lockIntent);
                 break;
 
             case Intent.ACTION_USER_PRESENT:

@@ -17,7 +17,7 @@
             android:id="@+id/headerText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="[CYBERDECK_LOCKSCREEN_v1.0]"
+            android:text="[POCKET-TERMINAL]"
             android:textColor="#00FF00"
             android:textSize="12sp"
             android:fontFamily="monospace"

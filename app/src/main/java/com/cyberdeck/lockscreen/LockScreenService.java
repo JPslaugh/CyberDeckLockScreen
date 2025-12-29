@@ -13,6 +13,8 @@ public class LockScreenService extends Service {
 
     private static final String TAG = "CyberDeck.LockService";
     private ScreenReceiver screenReceiver;
+    private VolumeChangeReceiver volumeChangeReceiver;
+    private VolumeOverlay volumeOverlay;
     private KeyguardManager.KeyguardLock keyguardLock;
 
     @Override
@@ -23,13 +25,25 @@ public class LockScreenService extends Service {
         // Disable system lock screen
         disableSystemLockScreen();
 
+        // Setup volume overlay
+        volumeOverlay = new VolumeOverlay(this);
+
         // Register screen receiver
         screenReceiver = new ScreenReceiver();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_SCREEN_ON);
-        filter.addAction(Intent.ACTION_SCREEN_OFF);
-        filter.addAction(Intent.ACTION_USER_PRESENT);
-        registerReceiver(screenReceiver, filter);
+        IntentFilter screenFilter = new IntentFilter();
+        screenFilter.addAction(Intent.ACTION_SCREEN_ON);
+        screenFilter.addAction(Intent.ACTION_SCREEN_OFF);
+        screenFilter.addAction(Intent.ACTION_USER_PRESENT);
+        registerReceiver(screenReceiver, screenFilter);
+
+        // Register volume change receiver
+        volumeChangeReceiver = new VolumeChangeReceiver(volumeOverlay);
+        IntentFilter volumeFilter = new IntentFilter();
+        volumeFilter.addAction("android.media.VOLUME_CHANGED_ACTION");
+        volumeFilter.addAction("android.media.STREAM_MUTE_CHANGED_ACTION");
+        registerReceiver(volumeChangeReceiver, volumeFilter);
+
+        Log.d(TAG, "Volume overlay initialized");
     }
 
     private void disableSystemLockScreen() {
@@ -55,6 +69,12 @@ public class LockScreenService extends Service {
         Log.d(TAG, "Service destroyed");
         if (screenReceiver != null) {
             unregisterReceiver(screenReceiver);
+        }
+        if (volumeChangeReceiver != null) {
+            unregisterReceiver(volumeChangeReceiver);
+        }
+        if (volumeOverlay != null) {
+            volumeOverlay.destroy();
         }
     }
 

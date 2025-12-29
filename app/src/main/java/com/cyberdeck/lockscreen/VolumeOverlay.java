@@ -42,19 +42,19 @@ public class VolumeOverlay {
         if (!isShowing) {
             try {
                 WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                    200, // Fixed width to cover stock UI
-                    400, // Fixed height to cover stock UI
-                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                    200,
+                    400,
+                    WindowManager.LayoutParams.TYPE_SYSTEM_ERROR,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
                     WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
                     PixelFormat.TRANSLUCENT
                 );
 
-                // Position on right side where stock volume UI appears
+                // Cover entire screen
                 params.gravity = Gravity.TOP | Gravity.RIGHT;
-                params.y = 50; // Distance from top
-                params.x = 0; // Distance from right edge
+                params.y = 0;
+                params.x = 0;
 
                 windowManager.addView(overlayView, params);
                 isShowing = true;

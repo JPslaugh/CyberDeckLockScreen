@@ -87,7 +87,7 @@
 
     </LinearLayout>
 
-    <!-- Bottom Section: Unlock Instructions -->
+    <!-- Bottom Section: PIN Entry -->
     <LinearLayout
         android:id="@+id/bottomSection"
         android:layout_width="match_parent"
@@ -99,26 +99,52 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="┌────────────────────────┐"
-            android:textColor="#00FF00"
-            android:textSize="12sp"
-            android:fontFamily="monospace" />
+            android:text="[ENTER PASSWORD]"
+            android:textColor="#00FFFF"
+            android:textSize="14sp"
+            android:fontFamily="monospace"
+            android:paddingBottom="12dp" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="│   SWIPE UP TO UNLOCK   │"
-            android:textColor="#00FF00"
-            android:textSize="12sp"
-            android:fontFamily="monospace" />
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="> "
+                android:textColor="#00FF00"
+                android:textSize="16sp"
+                android:fontFamily="monospace" />
+
+            <EditText
+                android:id="@+id/pinInput"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:hint="______"
+                android:textColorHint="#00FF0040"
+                android:textColor="#00FF00"
+                android:textSize="16sp"
+                android:fontFamily="monospace"
+                android:background="@android:color/transparent"
+                android:inputType="numberPassword"
+                android:maxLength="6"
+                android:gravity="center"
+                android:paddingBottom="8dp" />
+
+        </LinearLayout>
 
         <TextView
+            android:id="@+id/errorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="└────────────────────────┘"
-            android:textColor="#00FF00"
+            android:text=""
+            android:textColor="#FF0000"
             android:textSize="12sp"
             android:fontFamily="monospace"
+            android:paddingTop="8dp"
             android:paddingBottom="16dp" />
 
         <TextView

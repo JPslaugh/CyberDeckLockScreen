@@ -2,7 +2,6 @@ package com.cyberdeck.lockscreen;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -11,10 +10,11 @@ import android.net.wifi.WifiManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,8 +22,9 @@ import java.util.Locale;
 
 public class LockScreenActivity extends Activity {
 
-    private TextView timeText, dateText, batteryText, wifiText, uptimeText, statusText;
-    private GestureDetector gestureDetector;
+    private static final String CORRECT_PIN = "757175";
+    private TextView timeText, dateText, batteryText, wifiText, uptimeText, statusText, errorText;
+    private EditText pinInput;
     private KeyguardManager keyguardManager;
 
     @Override
@@ -47,18 +48,51 @@ public class LockScreenActivity extends Activity {
         wifiText = findViewById(R.id.wifiText);
         uptimeText = findViewById(R.id.uptimeText);
         statusText = findViewById(R.id.statusText);
+        errorText = findViewById(R.id.errorText);
+        pinInput = findViewById(R.id.pinInput);
 
         keyguardManager = (KeyguardManager) getSystemService(Context.KEYGUARD_SERVICE);
 
-        // Setup gesture detector for swipe to unlock
-        gestureDetector = new GestureDetector(this, new SwipeGestureListener());
+        // Setup PIN input
+        setupPinInput();
 
         updateSystemInfo();
+
+        // Show keyboard automatically
+        pinInput.postDelayed(() -> {
+            pinInput.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(pinInput, InputMethodManager.SHOW_IMPLICIT);
+        }, 100);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return gestureDetector.onTouchEvent(event) || super.onTouchEvent(event);
+    private void setupPinInput() {
+        pinInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                errorText.setText("");
+
+                if (s.length() == 6) {
+                    checkPin(s.toString());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    private void checkPin(String enteredPin) {
+        if (CORRECT_PIN.equals(enteredPin)) {
+            unlockScreen();
+        } else {
+            errorText.setText("[ACCESS DENIED]");
+            pinInput.setText("");
+            pinInput.postDelayed(() -> errorText.setText(""), 2000);
+        }
     }
 
     private void updateSystemInfo() {
@@ -125,28 +159,5 @@ public class LockScreenActivity extends Activity {
     @Override
     public void onBackPressed() {
         // Prevent back button from dismissing lock screen
-    }
-
-    // Gesture listener for swipe to unlock
-    private class SwipeGestureListener extends GestureDetector.SimpleOnGestureListener {
-        private static final int SWIPE_THRESHOLD = 100;
-        private static final int SWIPE_VELOCITY_THRESHOLD = 100;
-
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            float diffY = e2.getY() - e1.getY();
-            float diffX = e2.getX() - e1.getX();
-
-            if (Math.abs(diffY) > Math.abs(diffX)) {
-                if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                    if (diffY < 0) {
-                        // Swipe up detected
-                        unlockScreen();
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
     }
 }

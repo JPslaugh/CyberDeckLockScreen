@@ -41,9 +41,10 @@ public class VolumeOverlay {
                 WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                     200, // Fixed width to cover stock UI
                     400, // Fixed height to cover stock UI
-                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                    WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
+                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
                     PixelFormat.TRANSLUCENT
                 );
 

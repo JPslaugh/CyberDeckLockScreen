@@ -20,11 +20,7 @@ public class ScreenReceiver extends BroadcastReceiver {
         switch (intent.getAction()) {
             case Intent.ACTION_SCREEN_ON:
                 // Screen turned on, show lock screen
-                Intent lockIntent = new Intent(context, LockScreenActivity.class);
-                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                                  Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                  Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                context.startActivity(lockIntent);
+                showLockScreen(context);
                 break;
 
             case Intent.ACTION_SCREEN_OFF:
@@ -42,11 +38,7 @@ public class ScreenReceiver extends BroadcastReceiver {
                 }
 
                 // Also show lock screen immediately
-                Intent lockIntent = new Intent(context, LockScreenActivity.class);
-                lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
-                                  Intent.FLAG_ACTIVITY_CLEAR_TOP |
-                                  Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                context.startActivity(lockIntent);
+                showLockScreen(context);
                 break;
 
             case Intent.ACTION_USER_PRESENT:
@@ -54,5 +46,13 @@ public class ScreenReceiver extends BroadcastReceiver {
                 Log.d(TAG, "User present");
                 break;
         }
+    }
+
+    private void showLockScreen(Context context) {
+        Intent lockIntent = new Intent(context, LockScreenActivity.class);
+        lockIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                          Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                          Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        context.startActivity(lockIntent);
     }
 }

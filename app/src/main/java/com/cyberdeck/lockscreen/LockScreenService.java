@@ -1,6 +1,9 @@
 package com.cyberdeck.lockscreen;
 
 import android.app.KeyguardManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +24,9 @@ public class LockScreenService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "Service created");
+
+        // Start as foreground service to prevent killing
+        startForeground(1, createNotification());
 
         // Disable system lock screen
         disableSystemLockScreen();
@@ -44,6 +50,34 @@ public class LockScreenService extends Service {
         registerReceiver(volumeChangeReceiver, volumeFilter);
 
         Log.d(TAG, "Volume overlay initialized");
+    }
+
+    private Notification createNotification() {
+        String channelId = "cyberdeck_service";
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(
+                channelId,
+                "Pocket Terminal Service",
+                NotificationManager.IMPORTANCE_MIN
+            );
+            channel.setShowBadge(false);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+
+        Notification.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder = new Notification.Builder(this, channelId);
+        } else {
+            builder = new Notification.Builder(this);
+        }
+
+        return builder
+            .setContentTitle("Pocket Terminal")
+            .setContentText("Lock screen active")
+            .setSmallIcon(android.R.drawable.ic_lock_lock)
+            .build();
     }
 
     private void disableSystemLockScreen() {

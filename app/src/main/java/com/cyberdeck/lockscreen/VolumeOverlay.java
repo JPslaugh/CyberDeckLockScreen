@@ -36,12 +36,15 @@ public class VolumeOverlay {
     }
 
     public void show(int volumePercent) {
+        // Update volume first
+        updateVolume(volumePercent);
+
         if (!isShowing) {
             try {
                 WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                     200, // Fixed width to cover stock UI
                     400, // Fixed height to cover stock UI
-                    WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                     WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE |
                     WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
@@ -57,10 +60,10 @@ public class VolumeOverlay {
                 isShowing = true;
             } catch (Exception e) {
                 e.printStackTrace();
+                isShowing = false;
+                return;
             }
         }
-
-        updateVolume(volumePercent);
 
         // Remove existing hide callback and schedule new one
         handler.removeCallbacks(hideRunnable);

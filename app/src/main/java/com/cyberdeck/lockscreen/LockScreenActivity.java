@@ -97,7 +97,7 @@ public class LockScreenActivity extends Activity {
 
     private void updateSystemInfo() {
         // Update time
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a", Locale.US);
         timeText.setText(sdf.format(new Date()));
 
         // Update date
